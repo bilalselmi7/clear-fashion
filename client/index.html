@@ -1,15 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color: rgba(148, 90, 140, 0.301);">
+
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>👕 Clear Fahion | Environmentally & human-friendly clothes</title>
+    <title>
+      👕 Clear Fashion | Environmentally & human-friendly clothes
+    </title>
   </head>
   <body>
-    <h1>Clear fashion</h1>
-    <section id="options">
+    <style type="text/css">
+      p {
+        color: #f9fd02;
+        font-size: xx-large ;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        background-color: teal;
+
+      }
+      .shadowbox {
+  width: 15em;
+  border: 1px solid rgb(12, 58, 0);
+  box-shadow: 8px 8px 5px rgb(8, 238, 0);
+  padding: 8px 12px;
+  background-image: linear-gradient(180deg, rgb(3, 0, 43), rgb(0, 53, 151) 40%, rgb(0, 92, 197));
+  font-size:18px;
+  color:rgb(255, 255, 255);
+}
+      </style>
+      <p>Clear fashion</p>
+
+
+    <section id="options"       style =  'color: #f9fd02;
+                                          font-size: 20px ;
+                                          padding: 5px;
+                                          border: 1px solid rgb(0, 0, 0);
+                                          background-color: teal;'>
       <div id="show">
         <label for="show-select">Show:</label>
-        <select name="show" id="show-select">
+        <select name="show" id="show-select" style = 'color:rgb(255, 230, 2); background-color:midnightblue; padding: 5px; font-size:15px;' >
           <option value="12">12</option>
           <option value="24">24</option>
           <option value="48">48</option>
@@ -17,54 +46,67 @@
       </div>
       <div id="page">
         <label for="page-select">Go to page:</label>
-        <select name="page" id="page-select"> </select>
+        <select name="page" id="page-select" style = 'color:rgb(255, 230, 2); background-color:midnightblue; padding: 5px; font-size:15px;'> </select>
       </div>
       <div id="filters">
-        <span>By reasonable price</span>
-        <span>By recently released</span>
+        <div, id="only-favorites">
+            <label for="only-favorites-check" >Only favorites</label>
+            <input type="checkbox" id="only-favorites-check">
+        </div>
+        <div, id="new-release">
+            <label for="new-release-check">Only new releases</label>
+            <input type="checkbox" id="new-release-check">
+        </div>
+        <div, id="price">
+            <label for="price-check">Only reasonable price</label>
+            <input type="checkbox" id="price-check">
+        </div>
         <div id="brand">
-          <label for="brand-select">By brands:</label>
-          <select name="brand" id="brand-select"> </select>
+          <label for="brand-select">By Brands:</label>
+          <select name="brand" id="brand-select" style = 'color:rgb(255, 230, 2); background-color:midnightblue; padding: 5px; font-size:15px;'> </select>
         </div>
       </div>
       <div id="sort">
         <label for="sort-select">Sort:</label>
-        <select name="sort" id="sort-select">
-          <option value="price-asc">Cheaper</option>
-          <option value="price-desc">Expensive</option>
-          <option value="date-asc">Recently released</option>
-          <option value="date-desc">Anciently released</option>
-        </select>
+        <select name="sort" id="sort-select" style = 'color:rgb(255, 230, 2); background-color:midnightblue; padding: 5px; font-size:15px;'> </select>
       </div>
     </section>
-    <section id="indicators">
+    <section id="indicators" style="font-size: 20px; color:rgb(8, 0, 78);">
       <h2>Indicators</h2>
-      <div>
-        <span>Number of products</span>
-        <span id="nbProducts">0</span>
+
+      <div class="shadowbox">
+        <span>Total number of products</span>
+        <span id="nbProducts" >0</span>
+        
       </div>
-      <div>
-        <span>Number of new products</span>
-        <span>0</span>
+      <div class="shadowbox">
+        <span>Number of displayed products</span>
+        <span id="nbProductsDisplayed">0</span>
       </div>
-      <div>
+      <div class="shadowbox">
+        <span>Number of displayed new products</span>
+        <span id="nbProductsNewDisplayed">0</span>
+      </div>
+      <div class="shadowbox">
         <span>p50 price value</span>
-        <span>0</span>
+        <span id="p50PriceValue">0</span>
       </div>
-      <div>
+      <div class="shadowbox">
         <span>p90 price value</span>
-        <span>0</span>
+        <span id="p90PriceValue">0</span>
       </div>
-      <div>
+      <div class="shadowbox">
         <span>p95 price value</span>
-        <span>0</span>
+        <span id="p95PriceValue">0</span>
       </div>
-      <div>
+      <div class="shadowbox">
         <span>Last released date</span>
-        <span>2020-01-01</span>
+        <span id="lastReleaseDate">0</span>
       </div>
     </section>
-    <section id="products"></section>
+    <section id="products" style="font-size: 20px; color:rgb(8, 0, 78);"></section>
+    <script type="text/javascript" charset="UTF-8" src="data.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="index.js"></script>
     <script type="text/javascript" charset="UTF-8" src="portfolio.js"></script>
   </body>
 </html>

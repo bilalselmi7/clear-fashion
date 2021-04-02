@@ -2,10 +2,11 @@ require('dotenv').config();
 const {MongoClient} = require('mongodb');
 const fs = require('fs');
 
+
 const MONGODB_DB_NAME = 'clearfashion';
 const MONGODB_COLLECTION = 'products';
-const MONGODB_URI = process.env.MONGODB_URI;
-
+const MONGODB_URI = `mongodb+srv://bilal:webapp@cluster0.kfwer.mongodb.net/${MONGODB_DB_NAME}?retryWrites=true&w=majority`;
+                    
 let client = null;
 let database = null;
 
@@ -31,6 +32,7 @@ const getDB = module.exports.getDB = async () => {
   }
 };
 
+//---------------------------------------------------------------------
 /**
  * Insert list of products
  * @param  {Array}  products
@@ -51,12 +53,48 @@ module.exports.insert = async products => {
     };
   }
 };
+//-------------------------------------------------------------------
+
+
+module.exports.findByPrice = async price => {
+  try {
+    const mydb = await getDB();
+    const mycollection = mydb.collection(MONGODB_COLLECTION);
+    const found = await mycollection.find({"price":{$lte:price}});
+
+    return found;
+  } catch (error) 
+  {
+    console.error('🚨 Collection.find...', error);
+    return null;
+  }
+};
+
+//-------------------------------------------------------------------
 
 /**
  * Find products based on query
  * @param  {Array}  query
  * @return {Array}
  */
+ module.exports.findByBrand = async brand => {
+  try {
+
+    const mydb = await getDB();
+    const mycollection = mydb.collection(MONGODB_COLLECTION);
+    const found = await mycollection.find({brand:brand});
+
+    return found;
+  } catch (error) 
+  {
+    console.error('🚨 Collection.find...', error);
+    return null;
+  }
+};
+
+//-------------------------------------------------------------------
+
+
 module.exports.find = async query => {
   try {
     const db = await getDB();
@@ -69,6 +107,7 @@ module.exports.find = async query => {
     return null;
   }
 };
+
 
 /**
  * Close the connection
