@@ -3,10 +3,17 @@ const {MongoClient} = require('mongodb');
 const fs = require('fs');
 
 
+
 const MONGODB_DB_NAME = 'clearfashion';
 const MONGODB_COLLECTION = 'products';
 const MONGODB_URI = `mongodb+srv://bilal:webapp@cluster0.kfwer.mongodb.net/${MONGODB_DB_NAME}?retryWrites=true&w=majority`;
                     
+
+// const MONGODB_DB_NAME = 'clearfashion';
+// const MONGODB_COLLECTION = 'products';
+// const MONGODB_URI = process.env.MONGODB_URI;
+
+
 let client = null;
 let database = null;
 
@@ -17,6 +24,9 @@ let database = null;
 const getDB = module.exports.getDB = async () => {
   try {
     if (database) {
+
+      console.log('💽  Already Connected');
+
       return database;
     }
 
@@ -32,7 +42,9 @@ const getDB = module.exports.getDB = async () => {
   }
 };
 
+
 //---------------------------------------------------------------------
+
 /**
  * Insert list of products
  * @param  {Array}  products
@@ -42,13 +54,20 @@ module.exports.insert = async products => {
   try {
     const db = await getDB();
     const collection = db.collection(MONGODB_COLLECTION);
-    const result = await collection.insertMany(products);
+
+    //const result = await collection.insertMany(products);
+
+    // More details
+    // https://docs.mongodb.com/manual/reference/method/db.collection.insertMany/#insert-several-document-specifying-an-id-field
+    const result = await collection.insertMany(products, {'ordered': false});
+
 
     return result;
   } catch (error) {
     console.error('🚨 collection.insertMany...', error);
     fs.writeFileSync('products.json', JSON.stringify(products));
     return {
+
       'insertedCount': 0
     };
   }
@@ -72,11 +91,14 @@ module.exports.findByPrice = async price => {
 
 //-------------------------------------------------------------------
 
+
+
 /**
  * Find products based on query
  * @param  {Array}  query
  * @return {Array}
  */
+
  module.exports.findByBrand = async brand => {
   try {
 
@@ -93,6 +115,7 @@ module.exports.findByPrice = async price => {
 };
 
 //-------------------------------------------------------------------
+
 
 
 module.exports.find = async query => {
@@ -118,4 +141,8 @@ module.exports.close = async () => {
   } catch (error) {
     console.error('🚨 MongoClient.close...', error);
   }
+
 };
+
+
+
