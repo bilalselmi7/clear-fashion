@@ -3,7 +3,8 @@
 const dedicatedbrand = require('./sources/dedicatedbrand');
 const loom = require('./sources/loom');
 
-
+const dedicatedbrand = require('./sites/dedicatedbrand');
+const loom = require('./sites/loom');
 
 const db = require('./db');
 
@@ -38,7 +39,7 @@ async function sandbox () {
     console.log(`🕵️‍♀️  browsing ${pages.length} pages with Promise.all`);
 
 
-    //const promises = pages.map(loom.scrape);
+    const promises = pages.map(loom.scrape);
 
     const promises = pages.map(page => loom.scrape(page));
 
