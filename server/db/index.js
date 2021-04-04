@@ -2,17 +2,9 @@ require('dotenv').config();
 const {MongoClient} = require('mongodb');
 const fs = require('fs');
 
-
-
 const MONGODB_DB_NAME = 'clearfashion';
 const MONGODB_COLLECTION = 'products';
 const MONGODB_URI = `mongodb+srv://bilal:webapp@cluster0.kfwer.mongodb.net/${MONGODB_DB_NAME}?retryWrites=true&w=majority`;
-                    
-
-// const MONGODB_DB_NAME = 'clearfashion';
-// const MONGODB_COLLECTION = 'products';
-// const MONGODB_URI = process.env.MONGODB_URI;
-
 
 let client = null;
 let database = null;
@@ -24,9 +16,7 @@ let database = null;
 const getDB = module.exports.getDB = async () => {
   try {
     if (database) {
-
       console.log('💽  Already Connected');
-
       return database;
     }
 
@@ -42,9 +32,6 @@ const getDB = module.exports.getDB = async () => {
   }
 };
 
-
-//---------------------------------------------------------------------
-
 /**
  * Insert list of products
  * @param  {Array}  products
@@ -54,69 +41,37 @@ module.exports.insert = async products => {
   try {
     const db = await getDB();
     const collection = db.collection(MONGODB_COLLECTION);
-
-    //const result = await collection.insertMany(products);
-
     // More details
     // https://docs.mongodb.com/manual/reference/method/db.collection.insertMany/#insert-several-document-specifying-an-id-field
     const result = await collection.insertMany(products, {'ordered': false});
-
 
     return result;
   } catch (error) {
     console.error('🚨 collection.insertMany...', error);
     fs.writeFileSync('products.json', JSON.stringify(products));
     return {
-
       'insertedCount': 0
     };
   }
 };
-//-------------------------------------------------------------------
-
-
-module.exports.findByPrice = async price => {
-  try {
-    const mydb = await getDB();
-    const mycollection = mydb.collection(MONGODB_COLLECTION);
-    const found = await mycollection.find({"price":{$lte:price}});
-
-    return found;
-  } catch (error) 
-  {
-    console.error('🚨 Collection.find...', error);
-    return null;
-  }
-};
-
-//-------------------------------------------------------------------
-
-
 
 /**
  * Find products based on query
  * @param  {Array}  query
  * @return {Array}
  */
-
- module.exports.findByBrand = async brand => {
+module.exports.findByBrand = async brand => {
   try {
-
-    const mydb = await getDB();
-    const mycollection = mydb.collection(MONGODB_COLLECTION);
-    const found = await mycollection.find({brand:brand});
-
-    return found;
-  } catch (error) 
-  {
-    console.error('🚨 Collection.find...', error);
+    const db = await getDB();
+    const collection = db.collection(MONGODB_COLLECTION);
+    const result = await collection.find({brand:brand}).toArray();
+    return result;
+  } catch (error) {
+    console.error('🚨 collection.find...', error);
     return null;
   }
 };
-
-//-------------------------------------------------------------------
-
-
+  
 
 module.exports.find = async query => {
   try {
@@ -132,6 +87,117 @@ module.exports.find = async query => {
 };
 
 
+module.exports.find2 = async (query,pages,limit) => {
+  try {
+    skips = limit * (pages - 1)
+    const db = await getDB();
+    const collection = db.collection(MONGODB_COLLECTION);
+    const result = await collection.find(query).sort({price:1}).skip(skips).limit(limit).toArray();
+    const meta=await collection.countDocuments();
+    //console.log(result)
+    return {result,meta};
+  } catch (error) {
+    console.error('🚨 collection.find...', error);
+    return null;
+  }
+};
+
+
+
+module.exports.findLimited = async (query,l) => {
+  try {
+    const db = await getDB();
+    const collection = db.collection(MONGODB_COLLECTION);
+    const result = await collection.find(query).limit(l).toArray();
+
+    return result;
+  } catch (error) {
+    console.error('🚨 collection.find.limited..', error);
+    return null;
+  }
+};
+
+module.exports.findByPrice = async price => {
+  try {
+    const db = await getDB();
+    const collection = db.collection(MONGODB_COLLECTION);
+    const result = await collection.find({"price":{$lte:price}}).toArray();
+
+    return result;
+  } catch (error) {
+    console.error('🚨 collection.find...', error);
+    return null;
+  }
+};
+
+module.exports.filterByPrice = async () => {
+  try {
+    const db = await getDB();
+    const collection = db.collection(MONGODB_COLLECTION);
+    const result = await collection.find().sort({"price":-1}).toArray();
+
+    return result;
+  } catch (error) {
+    console.error('🚨 collection.find...', error);
+    return null;
+  }
+};
+
+module.exports.findByLease = async lease => {
+  try {
+    const db = await getDB();
+    const collection = db.collection(MONGODB_COLLECTION);
+    const result = await collection.find({"lease":{$lte:lease}}).toArray();
+
+    return result;
+  } catch (error) {
+    console.error('🚨 collection.find...', error);
+    return null;
+  }
+};
+
+module.exports.filterByLease = async () => {
+  try {
+    const db = await getDB();
+    const collection = db.collection(MONGODB_COLLECTION);
+    const result = await collection.find().sort({"lease":-1}).toArray();
+
+    return result;
+  } catch (error) {
+    console.error('🚨 collection.find...', error);
+    return null;
+  }
+};
+
+module.exports.findById = async id => {
+  try {
+    const db = await getDB();
+    const collection = db.collection(MONGODB_COLLECTION);
+    const result = await collection.find({'_id':id}).toArray();
+
+    return result;
+  } catch (error) {
+    console.error('🚨 collection.find...', error);
+    return null;
+  }
+};
+
+module.exports.filteredProducts = async (limit, brand, price) => {
+  try {
+    const db = await getDB();
+    const collection = db.collection(MONGODB_COLLECTION);
+    const result = await collection.find({'brand':brand,'price':{$lt:price}}).limit(limit).toArray();
+
+    return result;
+  } catch (error) {
+    console.error('🚨 collection.find...', error);
+    return null;
+  }
+};
+
+
+
+
 /**
  * Close the connection
  */
@@ -141,8 +207,6 @@ module.exports.close = async () => {
   } catch (error) {
     console.error('🚨 MongoClient.close...', error);
   }
-
 };
-
 
 

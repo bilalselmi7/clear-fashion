@@ -1,44 +1,34 @@
 <!DOCTYPE html>
-<html style="background-color: rgba(148, 90, 140, 0.301);">
-
+<html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>
-      👕 Clear Fashion | Environmentally & human-friendly clothes
-    </title>
+    <title>👕 Clear Fahion | Environmentally & human-friendly clothes</title>
+    <link rel="stylesheet" href="mystyle.css">
   </head>
   <body>
-    <style type="text/css">
-      p {
-        color: #f9fd02;
-        font-size: xx-large ;
-        padding: 5px;
-        border: 1px solid black;
-        text-align: center;
-        background-color: teal;
-
-      }
-      .shadowbox {
-  width: 15em;
-  border: 1px solid rgb(12, 58, 0);
-  box-shadow: 8px 8px 5px rgb(8, 238, 0);
-  padding: 8px 12px;
-  background-image: linear-gradient(180deg, rgb(3, 0, 43), rgb(0, 53, 151) 40%, rgb(0, 92, 197));
-  font-size:18px;
-  color:rgb(255, 255, 255);
-}
-      </style>
-      <p>Clear fashion</p>
-
-
-    <section id="options"       style =  'color: #f9fd02;
-                                          font-size: 20px ;
-                                          padding: 5px;
-                                          border: 1px solid rgb(0, 0, 0);
-                                          background-color: teal;'>
+    <h1>Clear fashion</h1>
+    <h3>Find the best product at the best price</h3>
+    <div class="row">
+      <div class="column">
+        <img src="images/p1.jpg" alt="Produit1" width="200" height="200">
+      </div>
+      <div class="column">
+        <img src="images/p2.jpg" alt="Produit2" width="200" height="200">
+      </div>
+      <div class="column">
+        <img src="images/center.jpg" alt="Produit3" width="350" height="350">
+      </div>
+      <div class="column">
+        <img src="images/p3.jpg" alt="Produit4" width="200" height="200">
+      </div>
+      <div class="column">
+        <img src="images/p4.jpg" alt="Produit5" width="200" height="200">
+      </div>
+    </div>
+    <section id="options" class="filters">
       <div id="show">
         <label for="show-select">Show:</label>
-        <select name="show" id="show-select" style = 'color:rgb(255, 230, 2); background-color:midnightblue; padding: 5px; font-size:15px;' >
+        <select name="show" id="show-select">
           <option value="12">12</option>
           <option value="24">24</option>
           <option value="48">48</option>
@@ -46,67 +36,99 @@
       </div>
       <div id="page">
         <label for="page-select">Go to page:</label>
-        <select name="page" id="page-select" style = 'color:rgb(255, 230, 2); background-color:midnightblue; padding: 5px; font-size:15px;'> </select>
+        <select name="page" id="page-select"> </select>
       </div>
-      <div id="filters">
-        <div, id="only-favorites">
-            <label for="only-favorites-check" >Only favorites</label>
-            <input type="checkbox" id="only-favorites-check">
+      <div>
+
+        <span>You can filter products here :</span>
+        <p> </p>
+
+        <input type="checkbox" id="check_reasonable_price">
+        <!--<span>By reasonable price</span>-->
+        <input type="button" class="filt" value="Reasonable price">
+        <!--<img src="images/fair2.png" alt="Reasonable" class="Reasonable" width="100" height="80">-->
+        <!--
+        <div id="block2">
+        <input type="radio" id="check_recently_released">
+        <span>By recently released</span>
+        <p> </p>
+        <img src="images/recent2.png" alt="Recent" class="Recent" width="100" height="90">
+        <p> </p>
         </div>
-        <div, id="new-release">
-            <label for="new-release-check">Only new releases</label>
-            <input type="checkbox" id="new-release-check">
-        </div>
-        <div, id="price">
-            <label for="price-check">Only reasonable price</label>
-            <input type="checkbox" id="price-check">
-        </div>
-        <div id="brand">
-          <label for="brand-select">By Brands:</label>
-          <select name="brand" id="brand-select" style = 'color:rgb(255, 230, 2); background-color:midnightblue; padding: 5px; font-size:15px;'> </select>
-        </div>
+        -->
+        <input type="checkbox" id="check_favorite">
+        <!--<span>By favorite</span>-->
+        <input type="button" class="filt" value="Favorites">
+        <!--<img src="images/favorite2.png" alt="Favorite" class="Favorite" width="100" height="80">-->
       </div>
+      <div id="brand">
+          <p> </p>
+          <label for="brand-select">By brands:</label>
+          <select name="brand" id="brand-select"></select>
+
+        </div>
       <div id="sort">
         <label for="sort-select">Sort:</label>
-        <select name="sort" id="sort-select" style = 'color:rgb(255, 230, 2); background-color:midnightblue; padding: 5px; font-size:15px;'> </select>
+        <select name="sort" id="sort-select">
+          <option value="price-asc">Cheaper</option>
+          <option value="price-desc">Expensive</option>
+          <!--
+          <option value="date-asc">Recently released</option>
+          <option value="date-desc">Anciently released</option>
+          -->
+        </select>
       </div>
     </section>
-    <section id="indicators" style="font-size: 20px; color:rgb(8, 0, 78);">
-      <h2>Indicators</h2>
 
-      <div class="shadowbox">
-        <span>Total number of products</span>
-        <span id="nbProducts" >0</span>
-        
+    <section id="indicators">
+      <p> </p>
+      <!--<img src="images/indicators.jpg" alt="Indicators" class="indicator" width="150" height="75">-->
+      <h2>Indicators</h2>
+      <!--
+      <div>
+        <img src="images/stock.png" alt="Stock" class="Stock" width="50" height="40">
+        <span>Number of products : </span>
+        <span id="nbProducts">0</span>
       </div>
-      <div class="shadowbox">
-        <span>Number of displayed products</span>
-        <span id="nbProductsDisplayed">0</span>
+      
+      <div>
+        <span>50th percentile of the prices : </span>
+        <span id="p50">0</span>
       </div>
-      <div class="shadowbox">
-        <span>Number of displayed new products</span>
-        <span id="nbProductsNewDisplayed">0</span>
+      <div>
+        <span>90th percentile of the prices : </span>
+        <span id="p90">0</span>
       </div>
-      <div class="shadowbox">
-        <span>p50 price value</span>
-        <span id="p50PriceValue">0</span>
+      <div>
+        <span>95th percentile of the prices : </span>
+        <span id="p95">0</span>
       </div>
-      <div class="shadowbox">
-        <span>p90 price value</span>
-        <span id="p90PriceValue">0</span>
+    -->
+      <!--
+      <div>
+        <img src="images/last.png" alt="Last" class="Last" width="50" height="40">
+        <span>Last released date : </span>
+        <span id="lastDate">2020-01-01</span>
       </div>
-      <div class="shadowbox">
-        <span>p95 price value</span>
-        <span id="p95PriceValue">0</span>
-      </div>
-      <div class="shadowbox">
-        <span>Last released date</span>
-        <span id="lastReleaseDate">0</span>
-      </div>
+      -->
+      <input type="button" class="ind" value="Number of products">
+      <span id="nbProducts">0</span>
+      <span>   </span>
+      <input type="button" class="ind" value="50th percentile of the prices">
+      <span id="p50">0</span>
+      <input type="button" class="ind" value="90th percentile of the prices">
+      <span id="p90">0</span>
+      <input type="button" class="ind" value="95th percentile of the prices">
+      <span id="p95">0</span>
+
     </section>
-    <section id="products" style="font-size: 20px; color:rgb(8, 0, 78);"></section>
+    <p> </p>
+    <!--<img src="images/products.jpg" alt="Products" class="product" width="150" height="100">-->
+    <section id="products"></section>
     <script type="text/javascript" charset="UTF-8" src="data.js"></script>
     <script type="text/javascript" charset="UTF-8" src="index.js"></script>
     <script type="text/javascript" charset="UTF-8" src="portfolio.js"></script>
+    
   </body>
+
 </html>
