@@ -1,7 +1,6 @@
 /* eslint-disable no-console, no-process-exit */
 
-const dedicatedbrand = require('./sources/dedicatedbrand');
-const loom = require('./sources/loom');
+
 
 const dedicatedbrand = require('./sites/dedicatedbrand');
 const loom = require('./sites/loom');
