@@ -1,40 +1,44 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const {'v5': uuidv5} = require('uuid');
 
 /**
- * Parse webpage e-shop
+ * Parse webpage restaurant
  * @param  {String} data - html response
- * @return {Array} products
+ * @return {Object} restaurant
  */
 const parse = data => {
   const $ = cheerio.load(data);
 
   return $('.productList-container .productList')
     .map((i, element) => {
-      const name = $(element)
-        .find('.productList-title')
-        .text()
-        .trim()
-        .replace(/\s/g, ' ');
-      const price = parseInt(
-        $(element)
-          .find('.productList-price')
-          .text()
-      
-      
-      );
+      const link = `https://www.dedicatedbrand.com${$(element)
+        .find('.productList-link')
+        .attr('href')}`;
 
-      return {name, price };
+      return {
+        link,
+        'brand': 'dedicated',
+        'price': parseInt(
+          $(element)
+            .find('.productList-price')
+            .text()
+        ),
+        'name': $(element)
+          .find('.productList-title')
+          .text()
+          .trim()
+          .replace(/\s/g, ' '),
+        'photo': $(element)
+          .find('.productList-image img')
+          .attr('src'),
+        '_id': uuidv5(link, uuidv5.URL)
+      };
     })
     .get();
 };
 
-/**
- * Scrape all the products for a given url page
- * @param  {[type]}  url
- * @return {Array|null}
- */
-module.exports.scrape_products = async url => {
+module.exports.scrape = async url => {
   const response = await axios(url);
   const {data, status} = response;
 
@@ -46,32 +50,3 @@ module.exports.scrape_products = async url => {
 
   return null;
 };
-
- //Scrape all links on the welcome page of the website
-module.exports.scrape_links = async url => {
-  const response = await axios(url);
-  const {data, status} = response;
-
-  if (status >= 200 && status < 300) {
-    return parse_links(data);
-  }
-
-  console.error(status);
-
-  return null;
-};
-
-
-const parse_links = data => {
-  const $ = cheerio.load(data);
-
-  return $('.mainNavigation-fixedContainer .mainNavigation-link-subMenu-link')
-    .map((i, element) => {
-      const link = $(element)
-        .find('.mainNavigation-link-subMenu-link > a[href]')
-        .attr('href')
-
-      return link;
-    })
-    .get();
-}; 
